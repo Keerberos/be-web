@@ -13,9 +13,19 @@ export class UserController {
     return this.userService.createUser(newUser);
   }
 
-  @Get()
+  @Get('all')
   getUsers(): Promise<UserEntity[]> {
     return this.userService.getUsers();
+  }
+
+  @Get(':email')
+  getUser(@Param('email') email: string) {
+    return this.userService.getUser(email);
+  }
+
+  @Post('login')
+  login(@Body() userDto: CreateUserDto) {
+    return this.userService.login(userDto);
   }
 
   @Delete(':username')

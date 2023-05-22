@@ -15,6 +15,7 @@ export class UserService {
 
   createUser(user: CreateUserDto) {
     const newUser = this.userRepository.create(user);
+    console.log('new user', newUser);
     return this.userRepository.save(newUser);
   }
 
@@ -22,6 +23,15 @@ export class UserService {
     return this.userRepository.find();
   }
 
+  getUser(email) {
+    return this.userRepository.findBy({ email: email });
+  }
+
+  login(userDto: CreateUserDto) {
+    const { email, password } = userDto;
+    return this.userRepository.findBy({ email: email, password: password });
+  }
+  
   deleteUser(username: string) {
     return this.userRepository.delete({ username: username });
   }
